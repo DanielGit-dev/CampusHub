@@ -14,7 +14,7 @@
 
 <ul>
     <li><a href="view_users.jsp">Manage Users</a></li>
-    <li><a href="view_events.jsp">View All Events</a></li>
+    <li><a href="view_all_events.jsp">View All Events</a></li>
     <li><a href="view_merchandise.jsp">View All Merchandise</a></li>
     <li><a href="reports.jsp">View Reports</a></li>
     <li><a href="LogoutServlet">Logout</a></li>
