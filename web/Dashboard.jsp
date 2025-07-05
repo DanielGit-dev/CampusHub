@@ -166,7 +166,7 @@
 
 
 <div class="register-section">
-  <a href="registration.jsp" class="register-btn">Register Event Now !</a>
+  <a href="registration.jsp" class="register-btn">Join Event Now !</a>
 </div>
 
 <!-- Centered Menu Section -->
