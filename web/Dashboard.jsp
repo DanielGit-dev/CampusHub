@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <title>Dashboard - Club Merchandise System</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/dashboard_style.css">
 
     <style>
         * {
@@ -158,7 +158,7 @@
   <h2 style="text-align: center; color: #2f3e9e;">Quick Actions</h2>
 
   <div class="action-buttons">
-    <a href="clubEvents.jsp" class="action-btn">Browse Club Events</a>
+    <a href="view_all_events.jsp" class="action-btn">Browse Club Events</a>
     <a href="catalog.jsp" class="action-btn">View Merchandise Catalog</a>
     <a href="placeOrder.jsp" class="action-btn">Place Merchandise Order</a>
   </div>
@@ -166,7 +166,7 @@
 
 
 <div class="register-section">
-  <a href="registration.jsp" class="register-btn">Join Event Now !</a>
+  <a href="eventRegistration.jsp" class="register-btn">Join Event Now !</a>
 </div>
 
 <!-- Centered Menu Section -->
@@ -175,19 +175,19 @@
       <a href="event.jsp" class="menu-item"><i class="fas fa-calendar-alt"></i> Event</a>
     <div class="gallery">
       <div class="gallery-item">
-        <img src="img/event1.jpg" alt="event 1">
+        <img src="image/dashboard_img/event1.jpg" alt="event 1">
         <p>Pertandingan Kawad Kaki (PERKAD)</p>
       </div>
       <div class="gallery-item">
-        <img src="img/event2.jpg" alt="event 2">
+        <img src="image/dashboard_img/event2.jpg" alt="event 2">
         <p>Sukan Antara Fakulti (SAF)</p>
       </div>
       <div class="gallery-item">
-        <img src="img/event3.jpg" alt="event 3">
+        <img src="image/dashboard_img/event3.jpg" alt="event 3">
         <p>Sukan Program (SuPro)</p>
       </div>
       <div class="gallery-item">
-        <img src="img/event4.jpg" alt="event 4">
+        <img src="image/dashboard_img/event4.jpg" alt="event 4">
         <p>Sukan Kolej (SUKOL)</p>
       </div>
     </div>
@@ -253,7 +253,7 @@
 </script>
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-<script src="menu_script.js"></script>
+<script src="js/dashboard_javaScript.js"></script>
 
 </body>
 </html>

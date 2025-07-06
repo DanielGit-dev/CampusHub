@@ -1,3 +1,4 @@
+<%@ page import="java.util.List" %>
 <%@ page import="java.sql.*, model.User" %>
 <%
     User admin = (User) session.getAttribute("user");
@@ -28,8 +29,14 @@
         <td><%= rs.getString("Email") %></td>
         <td><%= rs.getString("Role") %></td>
     </tr>
+    
+    <a href="EditUserServlet?userId=<%= rs.getInt("UserID") %>">Edit User</a>
+    <a href="DeleteUserServlet?userId=<%= rs.getInt("UserID") %>">Delete</a>
+
 <%
     }
     rs.close(); stmt.close(); conn.close();
 %>
 </table>
+
+
