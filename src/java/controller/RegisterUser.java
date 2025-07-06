@@ -1,6 +1,7 @@
 package controller;
 
-import model.*;
+import dao.UserDAO;
+import model.bean.User;
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;

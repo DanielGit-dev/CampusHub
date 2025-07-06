@@ -1,6 +1,6 @@
 package controller;
 
-import model.AdminStats;
+import model.bean.AdminStats;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
