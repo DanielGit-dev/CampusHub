@@ -172,7 +172,7 @@
 <!-- Centered Menu Section -->
 <div class="menu-container">
   <nav class="menu-vertical">
-      <a href="event.jsp" class="menu-item"><i class="fas fa-calendar-alt"></i> Event</a>
+      <a href="view_all_events.jsp" class="menu-item"><i class="fas fa-calendar-alt"></i> Event</a>
     <div class="gallery">
       <div class="gallery-item">
         <img src="image/dashboard_img/event1.jpg" alt="event 1">
@@ -195,19 +195,19 @@
     <a href="club.jsp" class="menu-item"><i class="fas fa-users"></i> Club</a>
     <div class="gallery">
         <div class="gallery-item">
-          <img src="img/club1.jpg" alt="Club 1">
+          <img src="image/dashboard_img/club1.jpg" alt="Club 1">
           <p>Kelab Bola Sepak</p>
         </div>
         <div class="gallery-item">
-          <img src="img/club2.jpg" alt="Club 2">
+          <img src="image/dashboard_img/club2.jpg" alt="Club 2">
           <p>Kelab Berenang</p>
         </div>
         <div class="gallery-item">
-          <img src="img/club3.jpg" alt="Club 3">
+          <img src="image/dashboard_img/club3.jpg" alt="Club 3">
           <p>Kelab Rekreasi</p>
         </div>
         <div class="gallery-item">
-          <img src="img/club4.jpg" alt="Club 4">
+          <img src="image/dashboard_img/club4.jpg" alt="Club 4">
           <p>Kelab Badminton</p>
         </div>
     </div>
@@ -215,19 +215,19 @@
     <a href="eventinfo.jsp" class="menu-item"><i class="fas fa-info-circle"></i> Merchandise</a>
     <div class="gallery">
       <div class="gallery-item">
-        <img src="img/merc1.jpg" alt="merc 1">
+        <img src="image/dashboard_img/merc1.jpg" alt="merc 1">
         <p>Keychain Kelab</p>
       </div>
       <div class="gallery-item">
-        <img src="img/merc2.jpg" alt="merc 2">
+        <img src="image/dashboard_img/merc2.jpg" alt="merc 2">
         <p>Jersi Kelab</p>
       </div>
       <div class="gallery-item">
-        <img src="img/merc3.jpg" alt="merc 3">
+        <img src="image/dashboard_img/merc3.jpg" alt="merc 3">
         <p>Topi Kelab</p>
       </div>
       <div class="gallery-item">
-        <img src="img/merc4.jpg" alt="merc 4">
+        <img src="image/dashboard_img/merc4.jpg" alt="merc 4">
         <p>Drawstring Bag Kelab</p>
       </div>
     </div>

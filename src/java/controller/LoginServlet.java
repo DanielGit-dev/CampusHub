@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
             // ✅ Redirect based on role
             String role = user.getRole();
             if ("Student".equalsIgnoreCase(role)) {
-                response.sendRedirect("student_dashboard.jsp");
+                response.sendRedirect("Dashboard.jsp");
             } else if ("ClubRep".equalsIgnoreCase(role)) {
                 response.sendRedirect("club_dashboard.jsp");
             } else if ("Admin".equalsIgnoreCase(role)) {
