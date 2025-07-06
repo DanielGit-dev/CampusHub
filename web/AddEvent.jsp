@@ -32,7 +32,7 @@
                 try {
                     Class.forName("org.apache.derby.jdbc.ClientDriver");
                     Connection conn = DriverManager.getConnection(
-                        "jdbc:derby://localhost:1527/event", "app", "app");
+                        "jdbc:derby://localhost:1527/CampusHub", "app", "app");
 
                     Statement stmt = conn.createStatement();
                     ResultSet rs = stmt.executeQuery("SELECT ClubID, Club_Name FROM Clubs");

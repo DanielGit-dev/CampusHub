@@ -3,11 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/User/OneDrive/Documents/NetBeansProjects/CampusMart/src/java/model/User.java</file>
-            <file>file:/C:/Users/User/OneDrive/Documents/NetBeansProjects/CampusMart/src/java/controller/RegisterServlet.java</file>
-            <file>file:/C:/Users/User/OneDrive/Documents/NetBeansProjects/CampusMart/src/java/model/UserDAO.java</file>
-            <file>file:/C:/Users/User/OneDrive/Documents/NetBeansProjects/CampusMart/web/Register.jsp</file>
-            <file>file:/C:/Users/User/OneDrive/Documents/NetBeansProjects/CampusMart/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/CampusHub/web/view_all_events.jsp</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/CampusHub/src/java/controller/RegisterUser.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/CampusHub/src/java/controller/LogoutServlet.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/CampusHub/src/java/controller/LoginServlet.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/CampusHub/web/view_users.jsp</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/CampusHub/src/java/model/User.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/CampusHub/web/eventRegistration.jsp</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/CampusHub/web/view_events.jsp</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/CampusHub/web/club_dashboard.jsp</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/CampusHub/web/AddEvent.jsp</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/CampusHub/src/java/controller/AddEventServlet.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/CampusHub/web/admin_dashboard.jsp</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/CampusHub/web/Register.jsp</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/CampusHub/src/java/controller/EventRegistrationServlet.java</file>
         </group>
     </open-files>
 </project-private>
