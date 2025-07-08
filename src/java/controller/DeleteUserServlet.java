@@ -1,6 +1,6 @@
 package controller;
 
-import model.User;
+import model.bean.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +18,7 @@ public class DeleteUserServlet extends HttpServlet {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/club_system", "root", "yourpassword");
+                    "jdbc:mysql://localhost:3306/Cam", "root", "yourpassword");
 
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM users WHERE user_id = ?");
             ps.setInt(1, userId);

@@ -1,6 +1,6 @@
 package controller;
 
-import model.User;
+import model.bean.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

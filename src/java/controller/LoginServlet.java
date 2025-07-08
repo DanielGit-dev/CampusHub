@@ -1,10 +1,11 @@
 package controller;
 
-import model.*;
+import dao.UserDAO;
 import java.io.IOException;
 import java.sql.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
+import model.bean.User;
 
 public class LoginServlet extends HttpServlet {
 
@@ -21,6 +22,10 @@ public class LoginServlet extends HttpServlet {
 
             UserDAO dao = new UserDAO(conn);
             User user = dao.checkLogin(email, password);
+            
+            System.out.println("Login attempt with: " + email);
+            System.out.println("Login result: " + (user != null ? "Success" : "Failed"));
+
 
             if (user != null) {
             HttpSession session = request.getSession();
