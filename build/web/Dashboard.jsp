@@ -167,7 +167,8 @@
   <div class="quick-actions">
     <a href="Catalog.jsp" class="action-btn">Shop Merchandise</a>
     <a href="orders.jsp" class="action-btn">View My Orders</a>
-    <a href="view_all_events.jsp" class="action-btn">Browse Events</a>
+    <a href="eventRegistration.jsp" class="action-btn">Browse Events</a>
+    <a href="userJoinedEvents.jsp" class="action-btn">My Joined Events</a>
   </div>
 </div>
 

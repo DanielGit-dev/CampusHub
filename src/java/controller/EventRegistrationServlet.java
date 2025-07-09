@@ -1,3 +1,5 @@
+
+package controller;
 import java.io.IOException;
 import java.sql.*;
 import javax.servlet.*;
@@ -18,7 +20,7 @@ public class EventRegistrationServlet extends HttpServlet {
             Connection conn = DriverManager.getConnection(
                     "jdbc:derby://localhost:1527/CampusHub", "app", "app");
 
-            // Check capacity vs current registrations
+            // Check event capacity
             String capacitySql = "SELECT Capacity FROM Events WHERE EventID = ?";
             PreparedStatement psCap = conn.prepareStatement(capacitySql);
             psCap.setInt(1, eventID);
@@ -29,6 +31,7 @@ public class EventRegistrationServlet extends HttpServlet {
                 capacity = rsCap.getInt("Capacity");
             }
 
+            // Count confirmed registrations
             String regCountSql = "SELECT COUNT(*) AS regCount FROM Event_Registration WHERE EventID = ? AND Status = 'Confirmed'";
             PreparedStatement psCount = conn.prepareStatement(regCountSql);
             psCount.setInt(1, eventID);
@@ -39,7 +42,7 @@ public class EventRegistrationServlet extends HttpServlet {
                 regCount = rsCount.getInt("regCount");
             }
 
-            // Determine status
+            // Determine user status
             if (regCount < capacity) {
                 status = "Confirmed";
             } else {
@@ -56,17 +59,14 @@ public class EventRegistrationServlet extends HttpServlet {
 
             int result = psInsert.executeUpdate();
 
-            if (result > 0) {
-                response.sendRedirect("success.jsp?status=" + status);
-            } else {
-                response.sendRedirect("error.jsp");
-            }
+            // ✅ Simplified redirect
+            response.sendRedirect("userJoinedEvents.jsp");
 
             conn.close();
 
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("error.jsp");
+            response.sendRedirect("userJoinedEvents.jsp");
         }
     }
 }
