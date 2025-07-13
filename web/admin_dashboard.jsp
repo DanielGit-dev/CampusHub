@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page session="true" %>
 
-<jsp:useBean id="stats" class="model.AdminStats" scope="request" />
+<jsp:useBean id="stats" class="model.bean.AdminStats" scope="request" />
 
 <%
     String adminUsername = (String) session.getAttribute("admin");
     if (adminUsername == null) {
-        response.sendRedirect("admin_login.jsp"); // redirect if not logged in as admin
+        response.sendRedirect("Login.jsp"); // redirect if not logged in as admin
         return;
     }
 %>

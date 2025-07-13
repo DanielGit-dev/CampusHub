@@ -16,9 +16,11 @@ public class EditUserServlet extends HttpServlet {
         User user = new User();
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
             Connection conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/club_system", "root", "yourpassword");
+                    "jdbc:derby://localhost:1527/CampusHub", "app", "app");
+
+
 
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM users WHERE user_id = ?");
             ps.setInt(1, userId);

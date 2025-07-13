@@ -16,9 +16,11 @@ public class AdminDashboardServlet extends HttpServlet {
 
         try {
             // Update with your DB info
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
             Connection conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/club_system", "root", "yourpassword");
+                    "jdbc:derby://localhost:1527/CampusHub", "app", "app");
+
+
 
             Statement stmt = conn.createStatement();
 
