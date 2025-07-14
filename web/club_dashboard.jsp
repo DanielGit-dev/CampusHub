@@ -151,7 +151,7 @@
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/CampusHub", "app", "app");
 
-            String sql = "SELECT C.Club_Name, E.Title, E.Date, E.Capacity, E.Image_Path " +
+            String sql = "SELECT E.EVENTID , C.Club_Name, E.Title, E.Date, E.Capacity, E.Image_Path " +
                         "FROM Users U " +
                         "JOIN Clubs C ON U.UserID = C.UserID " +
                         "JOIN Events E ON C.ClubID = E.ClubID " +
@@ -165,6 +165,7 @@
 
             while (rs.next()) {
                 hasEvents = true;
+                int eventID=rs.getInt("eventID");
                 String clubName = rs.getString("Club_Name");
                 String title = rs.getString("Title");
                 Date date = rs.getDate("Date");
@@ -174,6 +175,7 @@
             <div class="event-card">
                 <img src="<%= imagePath %>" alt="Event Image">
                 <div class="event-details">
+                    <p><span>Event ID:</span> <%= eventID %></p>
                     <p><span>Club:</span> <%= clubName %></p>
                     <p><span>Title:</span> <%= title %></p>
                     <p><span>Date:</span> <%= date %></p>
