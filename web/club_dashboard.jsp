@@ -9,7 +9,30 @@
     }
 
     int userID = user.getUserID();
+    String clubname = "";
+
+    try {
+        Class.forName("org.apache.derby.jdbc.ClientDriver");
+        Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/CampusHub", "app", "app");
+
+        String sql = "SELECT Club_Name FROM Clubs WHERE UserID = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, userID);
+
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            clubname = rs.getString("Club_Name");
+        }
+
+        rs.close();
+        ps.close();
+        conn.close();
+    } catch (Exception e) {
+        clubname = "(Unknown)";
+        e.printStackTrace();
+    }
 %>
+
 
 <!DOCTYPE html>
 <html>
@@ -104,20 +127,32 @@
             font-weight: bold;
             color: #333;
         }
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        .nav-buttons a {
+            padding: 12px 24px;
+            background-color: #2196F3;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        .nav-buttons a:hover {
+            background-color: #1565c0;
+        }
     </style>
 </head>
 <body>
+    
 
-    <h2>Welcome Club Representative! <%= user.getName() %></h2>
+    <h2>Welcome Club Representative! <%= user.getName() %>,<%= clubname %></h2>
 
     <div class="dashboard-container">
 
-        <!-- Manage Events -->
-        <div class="card">
-            <div class="icon">📅</div>
-            <h3>Manage Events</h3>
-            <a href="event.jsp">Add Event</a>
-        </div>
+        
 
         <!-- View Registrants -->
         <div class="card">
@@ -144,7 +179,12 @@
 
     <!-- ✅ Section: All Events for Club -->
     <div class="event-section">
-        <h3>Your Club's Events</h3>
+        <h3><div class="icon">📅</div>Your Club's Events</h3>
+        <div class="nav-buttons">
+        <a href="AddEvent.jsp">Create Event</a>
+        <a href="editEvent.jsp">Edit Event</a>
+        <a href="deleteEvent.jsp">Delete Event</a>
+        </div>
 
     <%
         try {
