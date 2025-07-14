@@ -8,9 +8,13 @@
             <web-module-libraries>
                 <library dirs="200">
                     <file>${libs.javaee-api-7.0.classpath}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
                     <file>${file.reference.Downloads-mysql-connector-java-5.1.49}</file>
+                </library>
+                <library dirs="200">
+                    <file>${file.reference.Downloads-sql-connector}</file>
                     <path-in-war>WEB-INF/classes</path-in-war>
                 </library>
             </web-module-libraries>
