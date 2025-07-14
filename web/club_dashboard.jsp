@@ -17,37 +17,58 @@
     <title>Club Dashboard</title>
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f0f4fc;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f2f8f9;
             padding: 40px;
+            text-align: center;
         }
 
-        h2, h3 {
-            color: #2f3e9e;
+        h2 {
+            color: #333;
+            margin-bottom: 40px;
+            font-size: 32px;
         }
 
-        .button-container {
-            margin-bottom: 30px;
+        .dashboard-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
         }
 
-        .button-container form {
+        .card {
+            background-color: white;
+            width: 280px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: scale(1.03);
+        }
+
+        .card a {
             display: inline-block;
-            margin-right: 20px;
-        }
-
-        input[type="submit"] {
-            background-color: #2f3e9e;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
             color: white;
-            padding: 12px 25px;
-            font-size: 16px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 6px;
+            transition: background-color 0.3s;
         }
 
-        input[type="submit"]:hover {
-            background-color: #1a2b8f;
+        .card a:hover {
+            background-color: #388e3c;
+        }
+
+        .icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+            color: #4CAF50;
         }
 
         .event-section {
@@ -63,6 +84,7 @@
             gap: 30px;
             align-items: center;
             margin-bottom: 30px;
+            text-align: left;
         }
 
         .event-card img {
@@ -86,47 +108,69 @@
 </head>
 <body>
 
-<h2>Welcome Club Representative! <%= user.getName() %> </h2>
+    <h2>Welcome Club Representative! <%= user.getName() %></h2>
 
-<div class="button-container">
-    <form action="view_events.jsp" method="get">
-        <input type="submit" value="View Existing Events">
-    </form>
+    <div class="dashboard-container">
 
-    <form action="AddEvent.jsp" method="get">
-        <input type="submit" value="Add New Event">
-    </form>
-</div>
+        <!-- Manage Events -->
+        <div class="card">
+            <div class="icon">📅</div>
+            <h3>Manage Events</h3>
+            <a href="event.jsp">Add Event</a>
+        </div>
 
-<!-- ✅ Section: All Events for Club -->
-<div class="event-section">
-    <h3>Your Club's Events</h3>
+        <!-- View Registrants -->
+        <div class="card">
+            <div class="icon">👥</div>
+            <h3>Event Registrants</h3>
+            <a href="event_registrant.jsp">View List</a>
+        </div>
 
-<%
-    try {
-        Class.forName("org.apache.derby.jdbc.ClientDriver");
-        Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/CampusHub", "app", "app");
+        <!-- Manage Merchandise -->
+        <div class="card">
+            <div class="icon">🛍️</div>
+            <h3>Manage Merchandise</h3>
+            <a href="merchandise.jsp">Go to Merchandise</a>
+        </div>
 
-        String sql = "SELECT C.Club_Name, E.Title, E.Date, E.Capacity, E.Image_Path " +
-                     "FROM Users U " +
-                     "JOIN Clubs C ON U.UserID = C.UserID " +
-                     "JOIN Events E ON C.ClubID = E.ClubID " +
-                     "WHERE U.UserID = ? ORDER BY E.Date";
+        <!-- View Orders -->
+        <div class="card">
+            <div class="icon">🧾</div>
+            <h3>Merchandise Orders</h3>
+            <a href="merch_orders.jsp">View Orders</a>
+        </div>
 
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setInt(1, userID);
+    </div>
 
-        ResultSet rs = ps.executeQuery();
-        boolean hasEvents = false;
+    <!-- ✅ Section: All Events for Club -->
+    <div class="event-section">
+        <h3>Your Club's Events</h3>
 
-        while (rs.next()) {
-            hasEvents = true;
-            String clubName = rs.getString("Club_Name");
-            String title = rs.getString("Title");
-            Date date = rs.getDate("Date");
-            int capacity = rs.getInt("Capacity");
-            String imagePath = rs.getString("Image_Path");
-%>
+    <%
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+            Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/CampusHub", "app", "app");
+
+            String sql = "SELECT C.Club_Name, E.Title, E.Date, E.Capacity, E.Image_Path " +
+                        "FROM Users U " +
+                        "JOIN Clubs C ON U.UserID = C.UserID " +
+                        "JOIN Events E ON C.ClubID = E.ClubID " +
+                        "WHERE U.UserID = ? ORDER BY E.Date";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, userID);
+
+            ResultSet rs = ps.executeQuery();
+            boolean hasEvents = false;
+
+            while (rs.next()) {
+                hasEvents = true;
+                String clubName = rs.getString("Club_Name");
+                String title = rs.getString("Title");
+                Date date = rs.getDate("Date");
+                int capacity = rs.getInt("Capacity");
+                String imagePath = rs.getString("Image_Path");
+    %>
             <div class="event-card">
                 <img src="<%= imagePath %>" alt="Event Image">
                 <div class="event-details">
@@ -136,23 +180,22 @@
                     <p><span>Capacity:</span> <%= capacity %></p>
                 </div>
             </div>
-<%
+    <%
+            }
+
+            if (!hasEvents) {
+    %>
+            <p>No events found for your club.</p>
+    <%
+            }
+
+            conn.close();
+        } catch (Exception e) {
+            out.println("<p style='color:red;'>Error fetching events.</p>");
         }
+    %>
 
-        if (!hasEvents) {
-%>
-        <p>No events found for your club.</p>
-<%
-        }
-
-        conn.close();
-    } catch (Exception e) {
-        out.println("<p style='color:red;'>Error fetching events.</p>");
-      
-    }
-%>
-
-</div>
+    </div>
 
 </body>
 </html>
