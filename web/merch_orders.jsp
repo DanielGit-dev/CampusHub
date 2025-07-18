@@ -1,19 +1,20 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.sql.*" %>
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Merchandise Orders</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            padding: 30px;
-            background-color: #f4f8fa;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f6f8;
+            padding: 40px;
         }
 
         h2 {
-            color: #333;
             text-align: center;
+            color: #2c3e50;
             margin-bottom: 30px;
         }
 
@@ -21,119 +22,115 @@
             width: 90%;
             margin: auto;
             border-collapse: collapse;
-            background-color: white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            background-color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
         }
 
         th, td {
-            padding: 12px 15px;
-            border: 1px solid #ccc;
-            text-align: left;
+            padding: 14px;
+            text-align: center;
         }
 
         th {
-            background-color: #d0eaff;
+            background-color: #1976d2;
+            color: white;
         }
 
         tr:nth-child(even) {
-            background-color: #f9f9f9;
+            background-color: #f2f9ff;
+        }
+
+        tr:hover {
+            background-color: #e3f2fd;
+        }
+
+        .total-row {
+            font-weight: bold;
+            background-color: #d1ecf1;
         }
 
         .back-link {
+            display: block;
+            margin: 30px auto;
             text-align: center;
-            margin-top: 25px;
-        }
-
-        .back-link a {
-            padding: 10px 20px;
-            background-color: #4CAF50;
+            background-color: #444;
             color: white;
+            padding: 12px 25px;
             text-decoration: none;
             border-radius: 6px;
+            width: max-content;
         }
 
-        .back-link a:hover {
-            background-color: #388e3c;
+        .back-link:hover {
+            background-color: #222;
         }
     </style>
 </head>
 <body>
 
-    <h2>Merchandise Orders from Students</h2>
+<h2>📦 Merchandise Orders</h2>
+
+<table>
+    <tr>
+        <th>Order ID</th>
+        <th>Merchandise Name</th>
+        <th>Quantity</th>
+        <th>Subtotal (RM)</th>
+        <th>Ordered By</th>
+    </tr>
 
     <%
+        double grandTotal = 0.0;
+
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
-            Connection conn = DriverManager.getConnection(
-                "jdbc:derby://localhost:1527/CampusHub", "app", "app");
+            Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/CampusHub", "app", "app");
 
-           String sql = "SELECT od.OrderDetail_ID, o.OrderID, u.UserID, u.Name AS FullName, u.Email, " +
-             "m.Name AS ProductName, od.Unit_Price, od.Quantity, od.Subtotal, o.Order_date " +
-             "FROM Order_Details od " +
-             "JOIN Orders o ON od.OrderID = o.OrderID " +
-             "JOIN Users u ON o.UserID = u.UserID " +
-             "JOIN Merchandise m ON od.ItemID = m.ItemID " +
-             "ORDER BY o.Order_date DESC";
+            String sql = "SELECT o.ORDER_ID, m.NAME AS MERCH_NAME, od.QUANTITY, od.SUBTOTAL, u.NAME " +
+                         "FROM ORDER_DETAILS od " +
+                         "JOIN ORDERS o ON od.ORDER_ID = o.ORDER_ID " +
+                         "JOIN USERS u ON o.USERID = u.USERID " +
+                         "JOIN MERCHANDISE m ON od.MERCH_ID = m.MERCH_ID";
 
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
 
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-
-            boolean hasData = false;
-    %>
-    <table>
-        <tr>
-            <th>Order ID</th>
-            <th>Student ID</th>
-            <th>Full Name</th>
-            <th>Email</th>
-            <th>Product</th>
-            <th>Price (RM)</th>
-            <th>Quantity</th>
-            <th>Total (RM)</th>
-            <th>Order Date</th>
-        </tr>
-    <%
             while (rs.next()) {
-                hasData = true;
-                double price = rs.getDouble("PRICE");
+                int orderId = rs.getInt("ORDER_ID");
+                String merchName = rs.getString("MERCH_NAME");
                 int quantity = rs.getInt("QUANTITY");
-                double total = price * quantity;
-    %>
-        <tr>
-            <td><%= rs.getInt("ORDERID") %></td>
-            <td><%= rs.getString("STUDENTID") %></td>
-            <td><%= rs.getString("FULLNAME") %></td>
-            <td><%= rs.getString("EMAIL") %></td>
-            <td><%= rs.getString("PRODUCT_NAME") %></td>
-            <td><%= String.format("%.2f", price) %></td>
-            <td><%= quantity %></td>
-            <td><%= String.format("%.2f", total) %></td>
-            <td><%= rs.getDate("ORDER_DATE") %></td>
-        </tr>
-    <%
-            }
+                double subtotal = rs.getDouble("SUBTOTAL");
+                String userName = rs.getString("NAME");
 
-            if (!hasData) {
+                grandTotal += subtotal;
     %>
-        <tr>
-            <td colspan="9" style="text-align:center;">No merchandise orders found.</td>
-        </tr>
+    <tr>
+        <td><%= orderId %></td>
+        <td><%= merchName %></td>
+        <td><%= quantity %></td>
+        <td>RM <%= String.format("%.2f", subtotal) %></td>
+        <td><%= userName %></td>
+    </tr>
     <%
             }
 
             conn.close();
         } catch (Exception e) {
     %>
-        <p style="color:red; text-align:center;">Error: <%= e.getMessage() %></p>
+    <tr><td colspan="5" style="color: red;">Error: <%= e.getMessage() %></td></tr>
     <%
         }
     %>
-    </table>
 
-    <div class="back-link">
-        <a href="club_dashboard.jsp">⬅ Back to Club Dashboard</a>
-    </div>
+    <tr class="total-row">
+        <td colspan="3">TOTAL</td>
+        <td colspan="2">RM <%= String.format("%.2f", grandTotal) %></td>
+    </tr>
+</table>
+
+<a class="back-link" href="club_dashboard.jsp">← Back to Dashboard</a>
 
 </body>
 </html>

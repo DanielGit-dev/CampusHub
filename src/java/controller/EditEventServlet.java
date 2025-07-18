@@ -1,7 +1,7 @@
 package controller;
 
-
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -12,6 +12,9 @@ public class EditEventServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
 
         try {
             int eventId = Integer.parseInt(request.getParameter("eventId"));
@@ -38,15 +41,20 @@ public class EditEventServlet extends HttpServlet {
             conn.close();
 
             if (result > 0) {
-                response.sendRedirect("manage_event.jsp");
+                out.println("<script type='text/javascript'>");
+                out.println("alert('Successfully edited the event');");
+                out.println("window.location = 'club_dashboard.jsp';");
+                out.println("</script>");
             } else {
-                response.sendRedirect("event_error.jsp");
+                out.println("<script type='text/javascript'>");
+                out.println("alert('Failed to edit the event');");
+                out.println("window.location = 'editEvent.jsp';");
+                out.println("</script>");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            response.setContentType("text/html");
-            response.getWriter().println("<h3>Error: " + e.getMessage() + "</h3>");
+            out.println("<h3>Error: " + e.getMessage() + "</h3>");
         }
     }
 }

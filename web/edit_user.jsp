@@ -1,74 +1,144 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:useBean id="user" class="model.User" scope="request" />
+<%@ page import="java.util.List" %>
+<%@ page import="java.sql.*, model.bean.User" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Edit User</title>
+    <title>Manage Users</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f7fa;
-            padding: 40px;
+        * {
+          font-family: 'Poppins', sans-serif;
+          box-sizing: border-box;
         }
-        .form-container {
-            max-width: 500px;
-            margin: auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        body {
+          margin: 0;
+          background: #f4f7fa;
+          color: #333;
+        }
+        header {
+          background-color: #222d63;
+          color: white;
+          padding: 20px;
+          text-align: center;
+          font-size: 24px;
+        }
+        section {
+          padding: 30px 40px;
         }
         h2 {
-            text-align: center;
-            color: #2f3e9e;
+          color: #2f3e9e;
+          margin-bottom: 20px;
         }
-        label {
-            display: block;
-            margin: 15px 0 5px;
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          background: #fff;
+          border-radius: 10px;
+          overflow: hidden;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-        input, select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
+        th, td {
+          padding: 14px 20px;
+          text-align: left;
+          border-bottom: 1px solid #ddd;
         }
-        button {
-            width: 100%;
-            padding: 10px;
-            background: #2f3e9e;
-            color: white;
-            font-size: 16px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
+        th {
+          background-color: #2f3e9e;
+          color: white;
         }
-        button:hover {
-            background: #1a2b8f;
+        tr:hover {
+          background-color: #f1f1f1;
+        }
+        .action-btn {
+          padding: 8px 14px;
+          margin-right: 6px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-weight: 500;
+        }
+        .edit-btn {
+          background-color: #4CAF50;
+          color: white;
+        }
+        .delete-btn {
+          background-color: #f44336;
+          color: white;
+        }
+        .back-link {
+          display: inline-block;
+          margin-top: 25px;
+          padding: 10px 20px;
+          background: #2f3e9e;
+          color: white;
+          border-radius: 6px;
+          text-decoration: none;
+          font-weight: 500;
+        }
+        .back-link:hover {
+          background-color: #1a2b8f;
         }
     </style>
 </head>
 <body>
-<div class="form-container">
-    <h2>Edit User</h2>
-    <form action="EditUserServlet" method="post">
-        <input type="hidden" name="userId" value="<%= user.getUserId() %>" />
+<%
+    User admin = (User) session.getAttribute("user");
+    if (admin == null || !"Admin".equalsIgnoreCase(admin.getRole())) {
+        response.sendRedirect("Login.jsp");
+        return;
+    }
 
-        <label for="name">Name:</label>
-        <input type="text" name="name" value="<%= user.getName() %>" required />
+    Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/CampusHub", "app", "app");
+    Statement stmt = conn.createStatement();
+    ResultSet rs = stmt.executeQuery("SELECT * FROM Users");
+%>
 
-        <label for="email">Email:</label>
-        <input type="email" name="email" value="<%= user.getEmail() %>" required />
+<header>Admin Panel</header>
 
-        <label for="role">Role:</label>
-        <select name="role">
-            <option value="user" <%= user.getRole().equals("user") ? "selected" : "" %>>User</option>
-            <option value="admin" <%= user.getRole().equals("admin") ? "selected" : "" %>>Admin</option>
-        </select>
+<section>
+    <h2>All Registered Users</h2>
+    <table>
+        <tr>
+            <th>UserID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+    <%
+        while (rs.next()) {
+            int userId = rs.getInt("UserID");
+            String name = rs.getString("Name");
+            String email = rs.getString("Email");
+            String role = rs.getString("Role");
+    %>
+        <tr>
+            <td><%= userId %></td>
+            <td><%= name %></td>
+            <td><%= email %></td>
+            <td><%= role %></td>
+            <td>
+                <form action="edit_userForm.jsp" method="get" style="display:inline;">
+                    <input type="hidden" name="userId" value="<%= userId %>">
+                    <input type="submit" class="action-btn edit-btn" value="Edit">
+                </form>
+                <form action="DeleteUserServlet" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                    <input type="hidden" name="userId" value="<%= userId %>">
+                    <input type="submit" class="action-btn delete-btn" value="Delete">
+                </form>
+            </td>
+        </tr>
+    <%
+        }
+        rs.close();
+        stmt.close();
+        conn.close();
+    %>
+    </table>
 
-        <button type="submit">Update User</button>
-    </form>
-</div>
+    <a href="admin_dashboard.jsp" class="back-link">? Back to Dashboard</a>
+</section>
+
 </body>
 </html>

@@ -16,27 +16,41 @@
         body, html {
             height: 100%;
             overflow: hidden;
+            background-color: f0f4fc;
         }
 
-        #bgVideo {
-            position: fixed;
-            top: 0;
-            left: 0;
-            min-width: 100%;
-            min-height: 100%;
-            object-fit: cover;
-            z-index: -1;
-            filter: brightness(0.6);
+     
+
+        .top-link {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            z-index: 1;
+        }
+
+        .top-link a {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 16px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: background-color 0.3s;
+        }
+
+        .top-link a:hover {
+            background-color: #0056b3;
         }
 
         .container {
             position: relative;
             max-width: 400px;
-            margin: 80px auto;
+            margin: 100px auto;
             padding: 40px;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
-            box-shadow: 0 0 25px rgba(0, 123, 255, 0.4);
+            box-shadow: 0 0 30px rgba(0, 123, 255, 0.5);
         }
 
         h2 {
@@ -46,20 +60,17 @@
         }
 
         input[type="email"],
-        input[type="password"],
-        select {
+        input[type="password"] {
             width: 100%;
             padding: 12px;
             margin: 12px 0;
             border: 1px solid #ccc;
             border-radius: 8px;
-            outline: none;
-            transition: border 0.3s;
+            transition: border-color 0.3s;
         }
 
         input[type="email"]:focus,
-        input[type="password"]:focus,
-        select:focus {
+        input[type="password"]:focus {
             border-color: #007BFF;
         }
 
@@ -72,7 +83,7 @@
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background-color 0.3s;
         }
 
         input[type="submit"]:hover {
@@ -81,29 +92,39 @@
 
         p {
             text-align: center;
-            margin-top: 15px;
+            margin-top: 20px;
             color: #333;
         }
 
-        a {
+        p a {
             color: #007BFF;
             text-decoration: none;
         }
 
-        a:hover {
+        p a:hover {
             text-decoration: underline;
         }
 
         @media (max-width: 500px) {
             .container {
-                margin: 40px 20px;
+                margin: 50px 20px;
                 padding: 30px;
+            }
+
+            .top-link {
+                right: 15px;
+                top: 15px;
             }
         }
     </style>
 </head>
 <body>
 
+    
+
+    <div class="top-link">
+        <a href="admin_login.jsp">Admin Login</a>
+    </div>
 
     <div class="container">
         <h2>Login to CampusHub</h2>

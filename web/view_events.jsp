@@ -215,6 +215,6 @@
         }
     %>
 
-    <a href="club_dashboard.jsp">Back to Dashboard</a>
+    <a href="admin_dashboard.jsp">Back to Dashboard</a>
 </body>
 </html>

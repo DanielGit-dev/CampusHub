@@ -5,21 +5,62 @@ public class OrderDetail {
     private int merchId;
     private String merchName;
     private int quantity;
+    private double unitPrice;
     private double subtotal;
+    
+    // Default constructor
+    public OrderDetail() {
+    }
 
-    // Getters & Setters
-    public int getOrderId() { return orderId; }
-    public void setOrderId(int orderId) { this.orderId = orderId; }
+    // Constructor with all fields (optional)
+    public OrderDetail(int orderId, int merchId, String merchName, int quantity, double unitPrice, double subtotal) {
+        this.orderId = orderId;
+        this.merchId = merchId;
+        this.merchName = merchName;
+        this.quantity = quantity;
+        this.unitPrice = unitPrice;
+        this.subtotal = subtotal;
+    }
 
-    public int getMerchId() { return merchId; }
-    public void setMerchId(int merchId) { this.merchId = merchId; }
+    public int getOrderId() {
+        return orderId;
+    }
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
 
-    public String getMerchName() { return merchName; }
-    public void setMerchName(String merchName) { this.merchName = merchName; }
+    public int getMerchId() {
+        return merchId;
+    }
+    public void setMerchId(int merchId) {
+        this.merchId = merchId;
+    }
 
-    public int getQuantity() { return quantity; }
-    public void setQuantity(int quantity) { this.quantity = quantity; }
+    public String getMerchName() {
+        return merchName;
+    }
+    public void setMerchName(String merchName) {
+        this.merchName = merchName;
+    }
 
-    public double getSubtotal() { return subtotal; }
-    public void setSubtotal(double subtotal) { this.subtotal = subtotal; }
+    public int getQuantity() {
+        return quantity;
+    }
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getUnitPrice() {
+        return unitPrice;
+    }
+    public void setUnitPrice(double unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    public double getSubtotal() {
+        return subtotal;
+    }
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
+    }
 }

@@ -7,6 +7,7 @@ package controller;
  */
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,16 +48,25 @@ public class DeleteEventServlet extends HttpServlet {
 
             int deleted = deleteStmt.executeUpdate();
 
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = response.getWriter();
+
             if (deleted > 0) {
-                response.sendRedirect("event_success.jsp");
+                out.println("<script type='text/javascript'>");
+                out.println("alert('Successfully deleted event');");
+                out.println("window.location = 'club_dashboard.jsp';");
+                out.println("</script>");
             } else {
-                response.sendRedirect("event_error.jsp");
+                out.println("<script type='text/javascript'>");
+                out.println("alert('Failed to delete event');");
+                out.println("window.location = 'deleteEvent.jsp';");
+                out.println("</script>");
             }
 
             conn.close();
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("event_error.jsp");
+            response.sendRedirect("deleteEvent.jsp");
         }
     }
 }

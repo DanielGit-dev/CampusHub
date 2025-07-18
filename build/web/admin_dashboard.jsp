@@ -1,14 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page session="true" %>
+<%@ page import="model.bean.User" %>
+<%@ page import="model.bean.AdminStats" %>
 
 <jsp:useBean id="stats" class="model.bean.AdminStats" scope="request" />
 
 <%
-    String adminUsername = (String) session.getAttribute("admin");
-    if (adminUsername == null) {
-        response.sendRedirect("Login.jsp"); // redirect if not logged in as admin
+    User admin = (User) session.getAttribute("user");
+    if (admin == null || !"admin".equals(admin.getRole())) {
+        response.sendRedirect("Login.jsp");
         return;
     }
+
+    String adminName = admin.getName();
 %>
 
 <!DOCTYPE html>
@@ -107,10 +111,9 @@
 
 <nav>
   <div>
-    <a href="admin_dashboard.jsp">Dashboard</a>
-    <a href="java/controller//LogoutServlet.java">Logout</a>
+    <a href="Logout.jsp">Logout</a>
   </div>
-  <div>Welcome, <%= adminUsername %></div>
+  <div>Welcome, <%= adminName %></div>
 </nav>
 
 <!-- Overview Summary Cards -->
@@ -139,7 +142,6 @@
   <div class="admin-links">
     <a href="view_users.jsp">View All Users</a>
     <a href="edit_user.jsp">Edit User</a>
-    <a href="delete_user.jsp">Remove User</a>
   </div>
 </section>
 
@@ -147,9 +149,9 @@
 <section class="admin-section">
   <h2>Clubs & Events Management</h2>
   <div class="admin-links">
-    <a href="club_dashboard.jsp">View Clubs</a>
-    <a href="view_events.jsp">Manage Events</a>
-    <a href="AddEvent.jsp">Add New Event</a>
+    <a href="view_club.jsp">View Clubs</a>
+    <a href="view_events.jsp">View Events</a>
+    <a href="addClub.jsp">Add New Club</a>
   </div>
 </section>
 
@@ -157,19 +159,8 @@
 <section class="admin-section">
   <h2>Merchandise Listings</h2>
   <div class="admin-links">
-    <a href="view_merchandise.jsp">View Merchandise</a>
-    <a href="edit_merchandise.jsp">Edit Listings</a>
-    <a href="add_merchandise.jsp">Add New Merchandise</a>
-  </div>
-</section>
-
-<!-- Reports -->
-<section class="admin-section">
-  <h2>Reports & Participation</h2>
-  <div class="admin-links">
-    <a href="order_report.jsp">Order Report</a>
-    <a href="event_participation.jsp">Event Participation</a>
-    <a href="revenue_report.jsp">Revenue Report</a>
+    <a href="Catalog.jsp">View Merchandise</a>
+    <a href="merch_orders.jsp">Merchandise Orders</a>
   </div>
 </section>
 

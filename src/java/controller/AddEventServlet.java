@@ -69,7 +69,12 @@ public class AddEventServlet extends HttpServlet {
             ps.executeUpdate();
             conn.close();
 
-            response.sendRedirect("view_events.jsp?clubID=" + clubID);
+            response.setContentType("text/html;charset=UTF-8");
+            response.getWriter().println("<script type='text/javascript'>");
+            response.getWriter().println("alert('✅ Event added successfully!');");
+            response.getWriter().println("window.location = 'club_dashboard.jsp';");
+            response.getWriter().println("</script>");
+            
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             response.getWriter().println("Error adding event: " + e.getMessage());

@@ -14,7 +14,7 @@ public class AdminLoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String username = request.getParameter("name");
+        String email = request.getParameter("email");
         String password = request.getParameter("password");
 
         try {
@@ -22,9 +22,9 @@ public class AdminLoginServlet extends HttpServlet {
             Connection conn = DriverManager.getConnection(
                 "jdbc:derby://localhost:1527/CampusHub", "app", "app");
 
-            String sql = "SELECT * FROM Users WHERE Username=? AND Password=? AND Role='Admin'";
+            String sql = "SELECT * FROM Users WHERE email=? AND Password=? AND Role='admin'";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, username);
+            stmt.setString(1, email);
             stmt.setString(2, password);
 
             ResultSet rs = stmt.executeQuery();
@@ -33,11 +33,13 @@ public class AdminLoginServlet extends HttpServlet {
                 // Create user object and store in session
                 User admin = new User();
                 admin.setUserID(rs.getInt("UserID"));
-                admin.setName(rs.getString("Username"));
+                admin.setEmail(rs.getString("email"));
                 admin.setRole(rs.getString("Role"));
+                admin.setName(rs.getString("name"));
                 request.getSession().setAttribute("user", admin);
 
-                response.sendRedirect("admin_dashboard.jsp");
+                response.sendRedirect("AdminDashboardServlet");
+
             } else {
                 request.setAttribute("error", "Invalid credentials or not an admin.");
                 request.getRequestDispatcher("admin_login.jsp").forward(request, response);
@@ -47,8 +49,10 @@ public class AdminLoginServlet extends HttpServlet {
 
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("error", "Internal error: " + e.getMessage());
+            request.setAttribute("errorTitle", "Oops! Something went wrong");
+            request.setAttribute("errorMessage", "An unexpected error occurred. Please try again later.<br><small>Details: " + e.getMessage() + "</small>");
             request.getRequestDispatcher("admin_login.jsp").forward(request, response);
         }
+
     }
 }

@@ -11,8 +11,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard - CampusHub</title>
+  <title>Dashboard - Uni-Club hub</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     * {
       margin: 0;
@@ -47,6 +48,7 @@
     .nav-left, .nav-right {
       display: flex;
       gap: 20px;
+      align-items: center;
     }
 
     nav a {
@@ -151,13 +153,14 @@
 
 <nav>
   <div class="nav-left">
-    <a href="Dashboard.jsp">Dashboard</a>
-    <a href="Catalog.jsp">Merchandise</a>
-    <a href="orders.jsp"><i class="fas fa-shopping-cart"></i> Orders</a>
+    <a href="Dashboard.jsp"><i class="fas fa-home"></i> Dashboard</a>
+    <a href="Catalog.jsp"><i class="fas fa-store"></i> Merchandise</a>
+    <a href="ViewCart.jsp"><i class="fas fa-shopping-cart"></i> View Cart</a>
+    <a href="view_orders.jsp"><i class="fas fa-file-alt"></i> Orders</a>
   </div>
   <div class="nav-right">
-    <span>Welcome, <%= user.getName() %></span>
-    <a href="Logout.jsp">Logout</a>
+    <span><i class="fas fa-user"></i> Welcome, <%= user.getName() %></span>
+    <a href="Logout.jsp"><i class="fas fa-sign-out-alt"></i> Logout</a>
   </div>
 </nav>
 
@@ -166,7 +169,7 @@
   <h2>Quick Actions</h2>
   <div class="quick-actions">
     <a href="Catalog.jsp" class="action-btn">Shop Merchandise</a>
-    <a href="orders.jsp" class="action-btn">View My Orders</a>
+    <a href="view_orders.jsp" class="action-btn">View My Orders</a>
     <a href="eventRegistration.jsp" class="action-btn">Browse Events</a>
     <a href="userJoinedEvents.jsp" class="action-btn">My Joined Events</a>
   </div>

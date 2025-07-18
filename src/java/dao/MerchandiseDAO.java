@@ -25,7 +25,7 @@ public class MerchandiseDAO {
 
             while (rs.next()) {
                 Merchandise m = new Merchandise();
-                m.setId(rs.getInt("id"));
+                m.setMerchId(rs.getInt("merch_id"));
                 m.setName(rs.getString("name"));
                 m.setDescription(rs.getString("description"));
                 m.setImageUrl(rs.getString("image_url"));
@@ -47,7 +47,7 @@ public class MerchandiseDAO {
 
             if (rs.next()) {
                 Merchandise m = new Merchandise();
-                m.setId(rs.getInt("id"));
+                m.setMerchId(rs.getInt("merchID"));
                 m.setName(rs.getString("name"));
                 m.setDescription(rs.getString("description"));
                 m.setImageUrl(rs.getString("image_url"));

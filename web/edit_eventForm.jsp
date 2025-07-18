@@ -39,54 +39,94 @@
 <head>
     <title>Edit Event</title>
     <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f2f8f9;
+            padding: 30px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #fff;
+            width: 60%;
+            margin: auto;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
         table {
-            width: 50%;
-            margin: 40px auto;
+            width: 100%;
             border-collapse: collapse;
-            background-color: #f9f9f9;
         }
+
         td {
-            padding: 10px;
+            padding: 12px;
         }
+
         td:first-child {
             text-align: right;
             font-weight: bold;
-            width: 40%;
+            width: 30%;
         }
-        td:last-child {
-            text-align: left;
-            width: 60%;
+
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        textarea {
+            width: 95%;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
         }
-        input, textarea {
-            width: 100%;
-            padding: 6px;
+
+        input[disabled] {
+            background-color: #eee;
+            color: #555;
         }
+
         button {
-            padding: 8px 16px;
-            margin-top: 10px;
-            background-color: #4caf50;
+            padding: 10px 20px;
+            background-color: #4CAF50;
             color: white;
+            font-weight: bold;
             border: none;
+            border-radius: 6px;
             cursor: pointer;
+            font-size: 15px;
         }
+
         button:hover {
             background-color: #45a049;
         }
-        a {
-            text-decoration: none;
+
+        a.cancel-link {
             margin-left: 15px;
-            color: #555;
+            color: #777;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        a.cancel-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
-    <h2 style="text-align:center;">Edit Event</h2>
+    <h2>Edit Event</h2>
 
     <form action="EditEventServlet" method="post">
         <input type="hidden" name="eventId" value="<%= eventId %>">
 
-        <table border="1">
+        <table>
             <tr>
                 <td>Event Title:</td>
                 <td><input type="text" name="title" value="<%= title %>" required></td>
@@ -97,7 +137,7 @@
             </tr>
             <tr>
                 <td>Description:</td>
-                <td><textarea name="description" rows="4"><%= description %></textarea></td>
+                <td><textarea name="description" rows="4" required><%= description %></textarea></td>
             </tr>
             <tr>
                 <td>Capacity:</td>
@@ -105,13 +145,16 @@
             </tr>
             <tr>
                 <td>Club ID:</td>
-                <td><input type="number" name="clubId" value="<%= clubId %>" required></td>
+                <td>
+                    <input type="number" value="<%= clubId %>" disabled>
+                    <input type="hidden" name="clubId" value="<%= clubId %>">
+                </td>
             </tr>
             <tr>
                 <td></td>
                 <td>
                     <button type="submit">Update Event</button>
-                    <a href="editEvent.jsp">Cancel</a>
+                    <a href="editEvent.jsp" class="cancel-link">Cancel</a>
                 </td>
             </tr>
         </table>
